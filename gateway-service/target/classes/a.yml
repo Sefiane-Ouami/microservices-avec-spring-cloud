@@ -1,0 +1,30 @@
+#spring:
+#  cloud:
+#    gateway:
+#      routes:
+#        - id : r1
+#          uri : http://localhost:8081
+#          predicates :
+#            - Path= /customers/**
+#        - id : r2
+#          uri : http://localhost:8082
+#          predicates:
+#            - Path= /products/**
+#spring:
+#  cloud:
+#    gateway:
+#      routes:
+#        - id: r2
+#          uri: https://weatherbit-v1-mashape.p.rapidapi.com
+#          predicates:
+#            - Path=/weather/**
+#          filters:
+#            - name: Hystrix
+#              args:
+#                name: weather
+#                fallbackUri: forward:/defaultWeather
+#            - RewritePath=/weather/(?<segment>.*)", "/${segment}
+#            - AddRequestHeader=X-RapidAPI-Host, weatherbit-v1-mashape.p.rapidapi.com
+#            - AddRequestHeader=X-RapidAPI-Key, a493391027mshd8dbcb2657d008cp153bfdjsnd87c6f2d5930
+#            - AddRequestParameter=lat,35.5888995
+#            - AddRequestParameter=lon,-5.3625516
